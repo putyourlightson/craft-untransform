@@ -1,0 +1,38 @@
+{
+    "name": "putyourlightson/craft-untransform",
+    "description": "Untransform .",
+    "version": "1.0.0",
+    "type": "craft-plugin",
+    "homepage": "https://github.com/putyourlightson/craft-untransform",
+    "license": "MIT",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "transform",
+        "development"
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "putyourlightson\\untransform\\": "src/"
+        }
+    },
+    "support": {
+        "docs": "https://github.com/putyourlightson/craft-untransform",
+        "source": "https://github.com/putyourlightson/craft-untransform",
+        "issues": "https://github.com/putyourlightson/craft-untransform/issues"
+    },
+    "extra": {
+        "name": "Untransform",
+        "handle": "untransform",
+        "developer": "PutYourLightsOn",
+        "developerUrl": "https://putyourlightson.com/",
+        "schemaVersion": "1.0.0",
+        "hasCpSettings": true,
+        "changelogUrl": "https://raw.githubusercontent.com/putyourlightson/craft-untransform/v1/CHANGELOG.md",
+        "class": "putyourlightson\\untransform\\Untransform"
+    }
+}
