@@ -9,14 +9,14 @@
 
 {{ forms.selectField({
     first: true,
-    label: "Replace Transforms"|t('blitz'),
+    label: "Replace Image Transforms"|t('blitz'),
     instructions: "How image transform URLs should be replaced."|t('untransform'),
     warning: (config.replaceTransforms is defined ? configWarning('replaceTransforms')),
     name: 'replaceTransforms',
     options: {
         0: "Do NOT replace image transform URLs"|t('untransform'),
         1: "Replace image transform URLs with a placeholder image"|t('untransform'),
-        2: "Replace image transform URLs with a base URL prefix prepended"|t('untransform'),
+        2: "Replace image transform URLs with a base URL prefix"|t('untransform'),
     },
     value: settings.replaceTransforms,
     required: true,
@@ -24,10 +24,11 @@
 
 {{ forms.textField({
     label: "Placeholder Image"|t('untransform'),
-    instructions: "The URL of the placeholder image to replace transformed images with. Leave this blank to use a default placeholder image."|t('untransform'),
+    instructions: "The URL of the placeholder image to replace transformed images with. Leave this blank to use the default placeholder image."|t('untransform'),
     warning: (config.placeholderImage is defined ? configWarning('placeholderImage')),
     name: 'placeholderImage',
     value: settings.placeholderImage,
+    placeholder: siteUrl('images/placeholder.svg'),
     errors: settings.getErrors('placeholderImage'),
 }) }}
 
@@ -37,5 +38,6 @@
     warning: (config.baseUrlPrefix is defined ? configWarning('baseUrlPrefix')),
     name: 'baseUrlPrefix',
     value: settings.baseUrlPrefix,
+    placeholder: 'https://livesite.com',
     errors: settings.getErrors('baseUrlPrefix'),
 }) }}

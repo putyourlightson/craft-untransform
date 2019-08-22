@@ -41,7 +41,7 @@ class UrlService extends Component
 
                 // Return default placeholder
                 return Craft::$app->getAssetManager()->getPublishedUrl(
-                    '@putyourlightson/untransform/resources/placeholder.png',
+                    '@putyourlightson/untransform/resources/placeholder.svg',
                     true
                 );
 
