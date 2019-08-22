@@ -39,12 +39,12 @@ class SettingsModel extends Model
     /**
      * @var string|null
      */
-    public $baseUrlPrefix;
+    public $placeholderImage;
 
     /**
      * @var string|null
      */
-    public $placeholderImage;
+    public $baseUrlPrefix;
 
     // Public Methods
     // =========================================================================
