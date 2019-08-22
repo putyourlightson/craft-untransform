@@ -2,11 +2,13 @@
 
 # Untransform Plugin for Craft CMS 3
 
-The Untransform plugin replaces image transform URLs with a placeholder image or with a base URL prefix. for [Craft CMS](https://craftcms.com/).
+The Untransform plugin replaces image transform URLs with a placeholder image or with a base URL prefix for [Craft CMS](https://craftcms.com/).
 
 This can be especially helpful when working in a development environment in which the image assets do not exist.
 
-![Untransform](https://user-images.githubusercontent.com/2318222/63528337-0b7fa800-c503-11e9-86ea-ab67878f52e3.png)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/2318222/63528984-37e7f400-c504-11e9-8514-07c0a589309a.jpg">
+</p>
 
 ## Requirements
 
