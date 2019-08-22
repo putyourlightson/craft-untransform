@@ -18,7 +18,10 @@
  */
 
 return [
-    // How image transform URLs should be replaced. included/excluded URI patterns. Disable this setting to prevent Blitz from caching any new pages.
+    // How image transform URLs should be replaced. Options:
+    // 0: Do NOT replace image transform URLs
+    // 1: Replace image transform URLs with a placeholder image
+    // 2: Replace image transform URLs with a base URL prefix
     //'replaceTransforms' => 0,
 
     // The URL of the placeholder image to replace transformed images with. Leave this blank to use the default placeholder image.
