@@ -4,7 +4,7 @@
 
 The Untransform plugin replaces image transform URLs with a placeholder image or with a base URL prefix for [Craft CMS](https://craftcms.com/).
 
-This can be especially helpful when working in a development environment in which the image assets do not exist.
+This can be especially helpful when working in a development environment in which the image assets do not exist. Rather than getting the broken image icon and pages taking forever to load due to invalid image transforms, display a placeholder image or the correct image transform from the live site.
 
 <p align="center">
     <img src="https://user-images.githubusercontent.com/2318222/63528984-37e7f400-c504-11e9-8514-07c0a589309a.jpg">
