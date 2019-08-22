@@ -10,18 +10,36 @@ use craft\base\Model;
 
 class SettingsModel extends Model
 {
+    // Constants
+    // =========================================================================
+
+    /**
+     * @const int
+     */
+    const REPLACE_TRANSFORMS_DISABLED = 0;
+
+    /**
+     * @const int
+     */
+    const REPLACE_TRANSFORMS_PLACEHOLDER = 1;
+
+    /**
+     * @const int
+     */
+    const REPLACE_TRANSFORMS_BASE_URL_PREFIX = 2;
+
     // Public Properties
     // =========================================================================
 
     /**
-     * @var bool
+     * @var int
      */
-    public $enabled = true;
+    public $replaceTransforms = 0;
 
     /**
      * @var string|null
      */
-    public $baseUrlPrefix = 'https://lynn.edu';
+    public $baseUrlPrefix;
 
     /**
      * @var string|null
@@ -37,7 +55,8 @@ class SettingsModel extends Model
     public function rules(): array
     {
         return [
-            [['enabled'], 'boolean'],
+            [['replaceTransforms'], 'required'],
+            [['replaceTransforms'], 'integer'],
         ];
     }
 }

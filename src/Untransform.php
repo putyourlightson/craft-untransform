@@ -40,12 +40,14 @@ class Untransform extends Plugin
             'urlService' => UrlService::class,
         ]);
 
-        Event::on(
-            Assets::class, Assets::EVENT_GET_ASSET_URL,
-            function(GetAssetUrlEvent $event) {
-                $event->url = $this->urlService->getUrl($event->asset, $event->transform);
-            }
-        );
+        if ($this->settings->replaceTransforms !== 0) {
+            Event::on(
+                Assets::class, Assets::EVENT_GET_ASSET_URL,
+                function (GetAssetUrlEvent $event) {
+                    $event->url = $this->urlService->getUrl($event->asset, $event->transform);
+                }
+            );
+        }
     }
 
     // Protected Methods
