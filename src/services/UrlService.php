@@ -10,6 +10,7 @@ use craft\base\Component;
 use craft\elements\Asset;
 use craft\errors\AssetTransformException;
 use craft\helpers\Assets;
+use craft\helpers\UrlHelper;
 use craft\models\AssetTransform;
 use putyourlightson\untransform\assets\UntransformAsset;
 use putyourlightson\untransform\models\SettingsModel;
@@ -57,11 +58,12 @@ class UrlService extends Component
                 }
 
                 $volume = $asset->getVolume();
-                $baseUrl = Untransform::$plugin->settings->baseUrlPrefix . $volume->getRootUrl();
+                $baseUrl = rtrim(Untransform::$plugin->settings->baseUrlPrefix, '/');
+                $volumeUri = ltrim(str_replace(UrlHelper::baseSiteUrl(), '', $volume->getRootUrl()), '/');
                 $folderPath = $asset->getFolder()->path;
                 $appendix = Assets::urlAppendix($volume, $asset);
 
-                return $baseUrl . $folderPath . $uri . $appendix;
+                return $baseUrl . '/' . ltrim($volumeUri, '/') . $folderPath . $uri . $appendix;
         }
 
         return '';
