@@ -1,4 +1,7 @@
-<p align="center"><img width="200" src="src/icon.svg"></p>
+[![Stable Version](https://img.shields.io/packagist/v/putyourlightson/craft-untransform?label=stable)]((https://packagist.org/packages/putyourlightson/craft-untransform))
+[![Total Downloads](https://img.shields.io/packagist/dt/putyourlightson/craft-untransform)](https://packagist.org/packages/putyourlightson/craft-untransform)
+
+<p align="center"><img width="150" src="https://raw.githubusercontent.com/putyourlightson/craft-untransform/v1/src/icon.svg"></p>
 
 # Untransform Plugin for Craft CMS 3
 
@@ -30,4 +33,6 @@ To install the plugin, search for “Untransform” in the Craft Plugin Store, o
 composer require putyourlightson/craft-untransform
 ```
 
-<small>Created by [PutYourLightsOn](https://putyourlightson.com/).</small>
+---
+
+Created by [PutYourLightsOn](https://putyourlightson.com/).
