@@ -1,7 +1,7 @@
 {
     "name": "putyourlightson/craft-untransform",
     "description": "Replaces image transform URLs with a placeholder image or with a base URL prefix.",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "type": "craft-plugin",
     "homepage": "https://github.com/putyourlightson/craft-untransform",
     "license": "MIT",

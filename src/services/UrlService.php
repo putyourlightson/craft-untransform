@@ -12,7 +12,7 @@ use craft\errors\AssetTransformException;
 use craft\helpers\Assets;
 use craft\helpers\UrlHelper;
 use craft\models\AssetTransform;
-use putyourlightson\untransform\assets\UntransformAsset;
+use craft\volumes\Local;
 use putyourlightson\untransform\models\SettingsModel;
 use putyourlightson\untransform\Untransform;
 
@@ -48,7 +48,17 @@ class UrlService extends Component
 
             case SettingsModel::REPLACE_TRANSFORMS_BASE_URL_PREFIX:
                 // Return the transform URL with the base URL prefix prepended
+                $volume = $asset->getVolume();
+
+                if (!($volume instanceof Local)) {
+                    return null;
+                }
+
+                $baseUrl = rtrim(Untransform::$plugin->settings->baseUrlPrefix, '/');
+                $volumeUri = ltrim(str_replace(UrlHelper::baseSiteUrl(), '', $volume->getRootUrl()), '/');
+                $folderPath = $asset->getFolder()->path;
                 $uri = $asset->filename;
+                $appendix = Assets::urlAppendix($volume, $asset);
 
                 if ($transform !== null) {
                     // Get the transform URI
@@ -56,12 +66,6 @@ class UrlService extends Component
                     $transformIndex = $assetTransforms->getTransformIndex($asset, $transform);
                     $uri = $assetTransforms->getTransformUri($asset, $transformIndex);
                 }
-
-                $volume = $asset->getVolume();
-                $baseUrl = rtrim(Untransform::$plugin->settings->baseUrlPrefix, '/');
-                $volumeUri = ltrim(str_replace(UrlHelper::baseSiteUrl(), '', $volume->getRootUrl()), '/');
-                $folderPath = $asset->getFolder()->path;
-                $appendix = Assets::urlAppendix($volume, $asset);
 
                 return $baseUrl . '/' . ltrim($volumeUri, '/') . $folderPath . $uri . $appendix;
         }
