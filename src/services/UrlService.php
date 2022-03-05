@@ -8,27 +8,19 @@ namespace putyourlightson\untransform\services;
 use Craft;
 use craft\base\Component;
 use craft\elements\Asset;
-use craft\errors\AssetTransformException;
+use craft\fs\Local;
 use craft\helpers\Assets;
 use craft\helpers\UrlHelper;
-use craft\models\AssetTransform;
-use craft\volumes\Local;
+use craft\models\ImageTransform;
 use putyourlightson\untransform\models\SettingsModel;
 use putyourlightson\untransform\Untransform;
 
 class UrlService extends Component
 {
-    // Public Methods
-    // =========================================================================
-
     /**
-     * @param Asset $asset
-     * @param AssetTransform|string|array|null $transform
-     *
-     * @return string|null
-     * @throws AssetTransformException
+     * Return the URL for an asset's image transform.
      */
-    public function getUrl(Asset $asset, $transform)
+    public function getUrl(Asset $asset, ImageTransform|string|array|null $transform): ?string
     {
         switch (Untransform::$plugin->settings->replaceTransforms) {
             case SettingsModel::REPLACE_TRANSFORMS_DISABLED:
@@ -49,22 +41,25 @@ class UrlService extends Component
             case SettingsModel::REPLACE_TRANSFORMS_BASE_URL_PREFIX:
                 // Return the transform URL with the base URL prefix prepended
                 $volume = $asset->getVolume();
+                $filesystem = $volume->getFs();
 
-                if (!($volume instanceof Local)) {
+                if (!($filesystem instanceof Local)) {
                     return null;
                 }
 
                 $baseUrl = rtrim(Untransform::$plugin->settings->baseUrlPrefix, '/');
-                $volumeUri = ltrim(str_replace(UrlHelper::baseSiteUrl(), '', $volume->getRootUrl()), '/');
+                $volumeUri = ltrim(str_replace(UrlHelper::baseSiteUrl(), '', $filesystem->getRootUrl()), '/');
                 $folderPath = $asset->getFolder()->path;
                 $uri = $asset->filename;
                 $appendix = Assets::urlAppendix($volume, $asset);
 
                 if ($transform !== null) {
-                    // Get the transform URI
-                    $assetTransforms = Craft::$app->getAssetTransforms();
-                    $transformIndex = $assetTransforms->getTransformIndex($asset, $transform);
-                    $uri = $assetTransforms->getTransformUri($asset, $transformIndex);
+                    // Get the transformed URI
+                    $transformedUrl = $asset->getUrl($transform);
+
+                    if ($transformedUrl) {
+                        $uri = str_replace($folderPath, '', $transformedUrl);
+                    }
                 }
 
                 return $baseUrl . '/' . ltrim($volumeUri, '/') . $folderPath . $uri . $appendix;

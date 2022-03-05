@@ -7,7 +7,7 @@ namespace putyourlightson\untransform;
 
 use Craft;
 use craft\base\Plugin;
-use craft\events\GetAssetUrlEvent;
+use craft\events\DefineAssetUrlEvent;
 use craft\services\Assets;
 use putyourlightson\untransform\models\SettingsModel;
 use putyourlightson\untransform\services\UrlService;
@@ -22,10 +22,12 @@ class Untransform extends Plugin
     /**
      * @var Untransform
      */
-    public static $plugin;
+    public static Untransform $plugin;
 
-    // Public Methods
-    // =========================================================================
+    /**
+     * @inheritdoc
+     */
+    public bool $hasCpSettings = true;
 
     /**
      * @inheritdoc
@@ -41,17 +43,13 @@ class Untransform extends Plugin
         ]);
 
         if ($this->settings->replaceTransforms !== 0) {
-            Event::on(
-                Assets::class, Assets::EVENT_GET_ASSET_URL,
-                function (GetAssetUrlEvent $event) {
+            Event::on(Assets::class, Assets::EVENT_DEFINE_ASSET_URL,
+                function (DefineAssetUrlEvent $event) {
                     $event->url = $this->urlService->getUrl($event->asset, $event->transform);
                 }
             );
         }
     }
-
-    // Protected Methods
-    // =========================================================================
 
     /**
      * @inheritdoc
@@ -64,7 +62,7 @@ class Untransform extends Plugin
     /**
      * @inheritdoc
      */
-    protected function settingsHtml()
+    protected function settingsHtml(): ?string
     {
         return Craft::$app->getView()->renderTemplate('untransform/_settings', [
             'settings' => $this->getSettings(),

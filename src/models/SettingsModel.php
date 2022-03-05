@@ -5,54 +5,44 @@
 
 namespace putyourlightson\untransform\models;
 
-use Craft;
 use craft\base\Model;
 
 class SettingsModel extends Model
 {
-    // Constants
-    // =========================================================================
+    /**
+     * @const int
+     */
+    public const REPLACE_TRANSFORMS_DISABLED = 0;
 
     /**
      * @const int
      */
-    const REPLACE_TRANSFORMS_DISABLED = 0;
+    public const REPLACE_TRANSFORMS_PLACEHOLDER = 1;
 
     /**
      * @const int
      */
-    const REPLACE_TRANSFORMS_PLACEHOLDER = 1;
-
-    /**
-     * @const int
-     */
-    const REPLACE_TRANSFORMS_BASE_URL_PREFIX = 2;
-
-    // Public Properties
-    // =========================================================================
+    public const REPLACE_TRANSFORMS_BASE_URL_PREFIX = 2;
 
     /**
      * @var int
      */
-    public $replaceTransforms = 0;
+    public int $replaceTransforms = 0;
 
     /**
-     * @var string|null
+     * @var string
      */
-    public $placeholderImage;
+    public string $placeholderImage = '';
 
     /**
-     * @var string|null
+     * @var string
      */
-    public $baseUrlPrefix;
-
-    // Public Methods
-    // =========================================================================
+    public string $baseUrlPrefix = '';
 
     /**
      * @inheritdoc
      */
-    public function rules(): array
+    public function defineRules(): array
     {
         return [
             [['replaceTransforms'], 'required'],
