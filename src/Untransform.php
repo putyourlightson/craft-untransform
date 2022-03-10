@@ -7,8 +7,8 @@ namespace putyourlightson\untransform;
 
 use Craft;
 use craft\base\Plugin;
+use craft\elements\Asset;
 use craft\events\DefineAssetUrlEvent;
-use craft\services\Assets;
 use putyourlightson\untransform\models\SettingsModel;
 use putyourlightson\untransform\services\UrlService;
 use yii\base\Event;
@@ -43,9 +43,9 @@ class Untransform extends Plugin
         ]);
 
         if ($this->settings->replaceTransforms !== 0) {
-            Event::on(Assets::class, Assets::EVENT_DEFINE_ASSET_URL,
+            Event::on(Asset::class, Asset::EVENT_DEFINE_URL,
                 function (DefineAssetUrlEvent $event) {
-                    $event->url = $this->urlService->getUrl($event->asset, $event->transform);
+                    $event->asset->url = $this->urlService->getUrl($event->asset, $event->transform);
                 }
             );
         }

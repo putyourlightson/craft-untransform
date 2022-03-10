@@ -1,6 +1,6 @@
 # Release Notes for Untransform
 
-## 2.0.0-alpha - 2022-03-05
+## 2.0.0-beta.1 - 2022-03-10
 ### Added
 - Added compatibility with Craft 4.
 

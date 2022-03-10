@@ -42,7 +42,7 @@ class SettingsModel extends Model
     /**
      * @inheritdoc
      */
-    public function defineRules(): array
+    protected function defineRules(): array
     {
         return [
             [['replaceTransforms'], 'required'],

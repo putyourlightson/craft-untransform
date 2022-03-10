@@ -51,7 +51,7 @@ class UrlService extends Component
                 $volumeUri = ltrim(str_replace(UrlHelper::baseSiteUrl(), '', $filesystem->getRootUrl()), '/');
                 $folderPath = $asset->getFolder()->path;
                 $uri = $asset->filename;
-                $appendix = Assets::urlAppendix($volume, $asset);
+                $appendix = Assets::urlAppendix($asset);
 
                 if ($transform !== null) {
                     // Get the transformed URI
