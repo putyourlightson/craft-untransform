@@ -9,7 +9,7 @@ use Craft;
 use craft\base\Component;
 use craft\elements\Asset;
 use craft\fs\Local;
-use craft\helpers\Assets;
+use craft\helpers\ImageTransforms;
 use craft\helpers\UrlHelper;
 use craft\models\ImageTransform;
 use putyourlightson\untransform\models\SettingsModel;
@@ -47,22 +47,21 @@ class UrlService extends Component
                     return null;
                 }
 
-                $baseUrl = rtrim(Untransform::$plugin->settings->baseUrlPrefix, '/');
+                $baseUrl = rtrim(Untransform::$plugin->settings->baseUrlPrefix, '/') . '/';
                 $volumeUri = ltrim(str_replace(UrlHelper::baseSiteUrl(), '', $filesystem->getRootUrl()), '/');
                 $folderPath = $asset->getFolder()->path;
                 $uri = $asset->filename;
-                $appendix = Assets::urlAppendix($asset);
 
                 if ($transform !== null) {
-                    // Get the transformed URI
-                    $transformedUrl = $asset->getUrl($transform);
+                    // Get the transform URI
+                    $transform = ImageTransforms::normalizeTransform($transform);
+                    $imageTransformer = $transform->getImageTransformer();
+                    $url = $imageTransformer->getTransformUrl($asset, $transform, true);
 
-                    if ($transformedUrl) {
-                        $uri = str_replace($folderPath, '', $transformedUrl);
-                    }
+                    return str_replace(UrlHelper::baseSiteUrl(), $baseUrl, $url);
                 }
 
-                return $baseUrl . '/' . ltrim($volumeUri, '/') . $folderPath . $uri . $appendix;
+                return $baseUrl . $volumeUri . $folderPath . $uri;
         }
 
         return '';

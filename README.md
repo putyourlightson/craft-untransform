@@ -23,13 +23,13 @@ This plugin is licensed for free under the MIT License.
 
 ## Requirements
 
-Craft CMS 3.0.0 or later.
+This plugin requires [Craft CMS](https://craftcms.com/) 3.0.0 or later, or 4.0.0 or later.
 
 ## Installation
 
 To install the plugin, search for “Untransform” in the Craft Plugin Store, or install manually using composer.
 
-```
+```shell
 composer require putyourlightson/craft-untransform
 ```
 

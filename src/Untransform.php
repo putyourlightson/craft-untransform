@@ -14,8 +14,8 @@ use putyourlightson\untransform\services\UrlService;
 use yii\base\Event;
 
 /**
- * @property UrlService $urlService
- * @property SettingsModel settings
+ * @property-read UrlService $urlService
+ * @property-read SettingsModel $settings
  */
 class Untransform extends Plugin
 {
@@ -23,6 +23,18 @@ class Untransform extends Plugin
      * @var Untransform
      */
     public static Untransform $plugin;
+
+    /**
+     * @inheritdoc
+     */
+    public static function config(): array
+    {
+        return [
+            'components' => [
+                'urlService' => ['class' => UrlService::class],
+            ],
+        ];
+    }
 
     /**
      * @inheritdoc
@@ -35,17 +47,12 @@ class Untransform extends Plugin
     public function init()
     {
         parent::init();
-
         self::$plugin = $this;
-
-        $this->setComponents([
-            'urlService' => UrlService::class,
-        ]);
 
         if ($this->settings->replaceTransforms !== 0) {
             Event::on(Asset::class, Asset::EVENT_DEFINE_URL,
-                function (DefineAssetUrlEvent $event) {
-                    $event->asset->url = $this->urlService->getUrl($event->asset, $event->transform);
+                function(DefineAssetUrlEvent $event) {
+                    $event->url = $this->urlService->getUrl($event->asset, $event->transform);
                 }
             );
         }
@@ -54,7 +61,7 @@ class Untransform extends Plugin
     /**
      * @inheritdoc
      */
-    protected function createSettingsModel(): SettingsModel
+    protected function createSettingsModel(): ?SettingsModel
     {
         return new SettingsModel();
     }
