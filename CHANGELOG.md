@@ -1,5 +1,9 @@
 # Release Notes for Untransform
 
+## 2.0.1 - 2022-05-18
+### Changed
+- Changed image transform exceptions to fail silently.
+
 ## 2.0.0 - 2022-05-07
 ### Added
 - Added compatibility with Craft 4.

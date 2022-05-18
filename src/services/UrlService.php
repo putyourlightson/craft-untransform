@@ -8,6 +8,7 @@ namespace putyourlightson\untransform\services;
 use Craft;
 use craft\base\Component;
 use craft\elements\Asset;
+use craft\errors\ImageTransformException;
 use craft\fs\Local;
 use craft\helpers\ImageTransforms;
 use craft\helpers\UrlHelper;
@@ -53,12 +54,16 @@ class UrlService extends Component
                 $uri = $asset->filename;
 
                 if ($transform !== null) {
-                    // Get the transform URI
-                    $transform = ImageTransforms::normalizeTransform($transform);
-                    $imageTransformer = $transform->getImageTransformer();
-                    $url = $imageTransformer->getTransformUrl($asset, $transform, true);
+                    try {
+                        // Get the transform URI
+                        $transform = ImageTransforms::normalizeTransform($transform);
+                        $imageTransformer = $transform->getImageTransformer();
+                        $url = $imageTransformer->getTransformUrl($asset, $transform, true);
 
-                    return str_replace(UrlHelper::baseSiteUrl(), $baseUrl, $url);
+                        return str_replace(UrlHelper::baseSiteUrl(), $baseUrl, $url);
+                    }
+                    catch (ImageTransformException) {
+                    }
                 }
 
                 return $baseUrl . $volumeUri . $folderPath . $uri;
